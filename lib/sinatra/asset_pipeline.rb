@@ -32,6 +32,7 @@ module Sinatra
       app.configure :staging, :production do
         Sprockets::Helpers.configure do |config|
           config.manifest = Sprockets::Manifest.new(app.sprockets, app.assets_path)
+          config.asset_host = app.assets_host if app.respond_to? :assets_host
         end
       end
 
@@ -41,7 +42,6 @@ module Sinatra
 
         Sprockets::Helpers.configure do |config|
           config.protocol = app.assets_protocol
-          config.asset_host = app.assets_host if app.respond_to? :assets_host
         end
       end
 
