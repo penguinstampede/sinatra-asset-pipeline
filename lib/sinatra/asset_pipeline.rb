@@ -10,11 +10,13 @@ module Sinatra
       app.set_default :assets_prefix, %w(assets vendor/assets)
       app.set_default :assets_path, -> { File.join(public_folder, "assets") }
       app.set_default :assets_protocol, :http
-      app.set_default :assets_css_compressor, :none
-      app.set_default :assets_js_compressor, :none
+      app.set_default :assets_css_compressor, nil
+      app.set_default :assets_js_compressor, nil
+      app.set_default :assets_host, nil
+      app.set_default :assets_digest, true
+      app.set_default :path_prefix, nil
 
-      app.set :static, true
-      app.set :assets_digest, true
+      app.set :static, :true
       app.set :static_cache_control, [:public, :max_age => 60 * 60 * 24 * 365]
 
       app.configure do
@@ -26,6 +28,7 @@ module Sinatra
         Sprockets::Helpers.configure do |config|
           config.environment = app.sprockets
           config.digest = app.assets_digest
+          config.prefix = app.path_prefix unless app.path_prefix.nil?
         end
       end
 
@@ -33,15 +36,18 @@ module Sinatra
         Sprockets::Helpers.configure do |config|
           config.manifest = Sprockets::Manifest.new(app.sprockets, app.assets_path)
           config.asset_host = app.assets_host if app.respond_to? :assets_host
+          config.prefix = app.path_prefix unless app.path_prefix.nil?
         end
       end
 
       app.configure :production do
-        app.sprockets.css_compressor = app.assets_css_compressor unless app.assets_css_compressor == :none
-        app.sprockets.js_compressor = app.assets_js_compressor unless app.assets_js_compressor == :none
+        app.sprockets.css_compressor = app.assets_css_compressor unless app.assets_css_compressor.nil?
+        app.sprockets.js_compressor = app.assets_js_compressor unless app.assets_js_compressor.nil?
 
         Sprockets::Helpers.configure do |config|
           config.protocol = app.assets_protocol
+          config.asset_host = app.assets_host unless app.assets_host.nil?
+          config.prefix = app.path_prefix unless app.path_prefix.nil?
         end
       end
 
