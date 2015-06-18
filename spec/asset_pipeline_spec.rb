@@ -5,11 +5,11 @@ describe Sinatra::AssetPipeline do
 
   describe App do
     describe "assets_precompile" do
-      it { expect(App.assets_precompile).to eq %w(app.js app.css *.png *.jpg *.svg *.eot *.ttf *.woff) }
+      it { expect(App.assets_precompile).to eq %w(app.js app.css *.png *.jpg *.svg *.eot *.ttf *.woff *.woff2) }
     end
 
     describe "assets_prefix" do
-      it { expect(App.assets_prefix).to eq %w(spec/assets) }
+      it { expect(App.assets_prefix).to eq %w(assets) }
     end
 
     describe "assets_host" do
@@ -36,6 +36,10 @@ describe Sinatra::AssetPipeline do
       it { expect(App.assets_digest).to be true }
     end
 
+    describe "assets_debug" do
+      it { expect(App.assets_debug).to be false }
+    end
+
     describe "path_prefix" do
       it { expect(App.path_prefix).to be nil }
     end
@@ -47,7 +51,7 @@ describe Sinatra::AssetPipeline do
     end
 
     describe "assets_prefix" do
-      it { expect(CustomApp.assets_prefix).to eq %w(spec/assets, foo/bar) }
+      it { expect(CustomApp.assets_prefix).to eq %w(assets, foo/bar) }
     end
 
     describe "assets_host" do
@@ -68,6 +72,10 @@ describe Sinatra::AssetPipeline do
 
     describe "assets_path_prefix" do
       it { expect(CustomApp.path_prefix).to eq '/static' }
+    end
+
+    describe "assets_debug" do
+      it { expect(CustomApp.assets_debug).to eq true }
     end
   end
 

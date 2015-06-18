@@ -1,4 +1,5 @@
-# sinatra-asset-pipeline
+Sinatra Asset Pipeline [![Build Status](https://travis-ci.org/kalasjocke/sinatra-asset-pipeline.svg?branch=master)](https://travis-ci.org/kalasjocke/sinatra-asset-pipeline) 
+======================
 
 An asset pipeline implementation for Sinatra based on [Sprockets](https://github.com/sstephenson/sprockets) with support for CoffeeScript, SASS, SCSS, LESS, ERB as well as CSS (SASS, YUI) and JavaScript (uglifier, YUI, Closure) minification.
 
@@ -19,6 +20,12 @@ require 'sinatra/asset_pipeline/task'
 require './app'
 
 Sinatra::AssetPipeline::Task.define! App
+```
+
+If your application runs Sinatra in classic style you can define your Rake task as follows:
+
+```ruby
+Sinatra::AssetPipeline::Task.define! Sinatra::Application
 ```
 
 Now, when everything is in place you can precompile assets located in `assets/<asset-type>` with:
@@ -60,7 +67,7 @@ require 'sinatra/asset_pipeline'
 
 class App < Sinatra::Base
   # Include these files when precompiling assets
-  set :assets_precompile, %w(app.js app.css *.png *.jpg *.svg *.eot *.ttf *.woff)
+  set :assets_precompile, %w(app.js app.css *.png *.jpg *.svg *.eot *.ttf *.woff *.woff2)
 
   # Logical paths to your assets
   set :assets_prefix, %w(assets vendor/assets)
@@ -68,7 +75,7 @@ class App < Sinatra::Base
   # Use another host for serving assets
   set :assets_host, '<id>.cloudfront.net'
 
-  # Serve assets using this protocol
+  # Serve assets using this protocol (http, :https, :relative)
   set :assets_protocol, :http
 
   # CSS minification

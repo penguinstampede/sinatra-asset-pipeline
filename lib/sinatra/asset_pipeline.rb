@@ -6,7 +6,7 @@ module Sinatra
   module AssetPipeline
     def self.registered(app)
       app.set_default :sprockets, Sprockets::Environment.new
-      app.set_default :assets_precompile, %w(app.js app.css *.png *.jpg *.svg *.eot *.ttf *.woff)
+      app.set_default :assets_precompile, %w(app.js app.css *.png *.jpg *.svg *.eot *.ttf *.woff *.woff2)
       app.set_default :assets_prefix, %w(assets vendor/assets)
       app.set_default :assets_path, -> { File.join(public_folder, "assets") }
       app.set_default :assets_protocol, :http
@@ -14,6 +14,7 @@ module Sinatra
       app.set_default :assets_js_compressor, nil
       app.set_default :assets_host, nil
       app.set_default :assets_digest, true
+      app.set_default :assets_debug, false
       app.set_default :path_prefix, nil
 
       app.set :static, :true
@@ -21,7 +22,7 @@ module Sinatra
 
       app.configure do
         app.assets_prefix.each do |prefix|
-          paths = Dir[File.join(prefix, '*')]
+          paths = Dir[File.join(app.root, prefix, '*')]
           paths.each { |path| app.sprockets.append_path path }
         end
 
@@ -29,6 +30,7 @@ module Sinatra
           config.environment = app.sprockets
           config.digest = app.assets_digest
           config.prefix = app.path_prefix unless app.path_prefix.nil?
+          config.debug = app.assets_debug
         end
       end
 
@@ -40,7 +42,7 @@ module Sinatra
         end
       end
 
-      app.configure :production do
+      app.configure :staging, :production do
         app.sprockets.css_compressor = app.assets_css_compressor unless app.assets_css_compressor.nil?
         app.sprockets.js_compressor = app.assets_js_compressor unless app.assets_js_compressor.nil?
 
@@ -66,4 +68,6 @@ module Sinatra
       self.set(key, default) unless self.respond_to? key
     end
   end
+
+  register AssetPipeline
 end
