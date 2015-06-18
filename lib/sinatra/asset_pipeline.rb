@@ -22,7 +22,7 @@ module Sinatra
 
       app.configure do
         app.assets_prefix.each do |prefix|
-          paths = Dir[File.join(app.root, prefix, '*')]
+          paths = Dir[File.join(settings.root, prefix, '*')]
           paths.each { |path| app.sprockets.append_path path }
         end
 
