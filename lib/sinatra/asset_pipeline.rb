@@ -19,10 +19,11 @@ module Sinatra
 
       app.set :static, :true
       app.set :static_cache_control, [:public, :max_age => 60 * 60 * 24 * 365]
+      app.set :root, File.dirname(__FILE__) if app.root.nil?
 
       app.configure do
         app.assets_prefix.each do |prefix|
-          paths = Dir[File.join(settings.root, prefix, '*')]
+          paths = Dir[File.join(app.root, prefix, '*')]
           paths.each { |path| app.sprockets.append_path path }
         end
 
