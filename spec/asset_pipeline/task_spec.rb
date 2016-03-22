@@ -1,8 +1,8 @@
 require 'spec_helper'
 
-Sinatra::AssetPipeline::Task.define! App
+Padrino::AssetPipeline::Task.define! App
 
-describe Sinatra::AssetPipeline::Task do
+describe Padrino::AssetPipeline::Task do
   include_context "assets"
 
   before(:all) { Dir.chdir "spec" }

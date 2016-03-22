@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Sinatra::AssetPipeline do
+describe Padrino::AssetPipeline do
   include_context "assets"
 
   describe App do

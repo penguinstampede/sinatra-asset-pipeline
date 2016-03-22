@@ -1,7 +1,7 @@
-Sinatra Asset Pipeline [![Build Status](https://travis-ci.org/kalasjocke/sinatra-asset-pipeline.svg?branch=master)](https://travis-ci.org/kalasjocke/sinatra-asset-pipeline) 
+Padrino Asset Pipeline [![Build Status](https://travis-ci.org/kalasjocke/sinatra-asset-pipeline.svg?branch=master)](https://travis-ci.org/kalasjocke/sinatra-asset-pipeline) 
 ======================
 
-An asset pipeline implementation for Sinatra based on [Sprockets](https://github.com/sstephenson/sprockets) with support for CoffeeScript, SASS, SCSS, LESS, ERB as well as CSS (SASS, YUI) and JavaScript (uglifier, YUI, Closure) minification.
+An asset pipeline implementation for Padrino based on [Sprockets](https://github.com/sstephenson/sprockets) with support for CoffeeScript, SASS, SCSS, LESS, ERB as well as CSS (SASS, YUI) and JavaScript (uglifier, YUI, Closure) minification.
 
 sinatra-asset-pipeline supports both compiling assets on the fly for development as well as precompiling assets for production.
 
@@ -19,13 +19,13 @@ Make sure to add the sinatra-asset-pipeline Rake task in your applications `Rake
 require 'sinatra/asset_pipeline/task'
 require './app'
 
-Sinatra::AssetPipeline::Task.define! App
+Padrino::AssetPipeline::Task.define! App
 ```
 
-If your application runs Sinatra in classic style you can define your Rake task as follows:
+If your application runs Padrino in classic style you can define your Rake task as follows:
 
 ```ruby
-Sinatra::AssetPipeline::Task.define! Sinatra::Application
+Padrino::AssetPipeline::Task.define! Padrino::Application
 ```
 
 Now, when everything is in place you can precompile assets located in `assets/<asset-type>` with:
@@ -42,15 +42,15 @@ $ RACK_ENV=production rake assets:clean
 
 # Example
 
-In its most simple form, you just register the `Sinatra::AssetPipeline` Sinatra extension within your application:
+In its most simple form, you just register the `Padrino::AssetPipeline` Padrino extension within your application:
 
 ```ruby
 Bundler.require
 
 require 'sinatra/asset_pipeline'
 
-class App < Sinatra::Base
-  register Sinatra::AssetPipeline
+class App < Padrino::Base
+  register Padrino::AssetPipeline
 
   get '/' do
     haml :index
@@ -65,7 +65,7 @@ Bundler.require
 
 require 'sinatra/asset_pipeline'
 
-class App < Sinatra::Base
+class App < Padrino::Base
   # Include these files when precompiling assets
   set :assets_precompile, %w(app.js app.css *.png *.jpg *.svg *.eot *.ttf *.woff *.woff2)
 
@@ -85,7 +85,7 @@ class App < Sinatra::Base
   set :assets_js_compressor, :uglifier
 
   # Register the AssetPipeline extention, make sure this goes after all customization
-  register Sinatra::AssetPipeline
+  register Padrino::AssetPipeline
 
   get '/' do
     haml :index
@@ -133,4 +133,3 @@ If you would like to use CSS and/or JavaScript minification make sure to require
 ### Compass integration
 
 Given that we're using [sprockets-sass](https://github.com/petebrowne/sprockets-sass) under the hood we have out of the box support for [compass](https://github.com/chriseppstein/compass). Just include the compass gem in your `Gemfile` and include the compass mixins in your `app.css.scss` file.
-

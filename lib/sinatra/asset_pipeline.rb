@@ -2,7 +2,7 @@ require 'sprockets'
 require 'sprockets-sass'
 require 'sprockets-helpers'
 
-module Sinatra
+module Padrino
   module AssetPipeline
     def self.registered(app)
       app.set_default :sprockets, Sprockets::Environment.new

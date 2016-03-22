@@ -2,7 +2,7 @@ require 'rake'
 require 'rake/tasklib'
 require 'rake/sprocketstask'
 
-module Sinatra
+module Padrino
   module AssetPipeline
     class Task < Rake::TaskLib
       def initialize(app_klass)

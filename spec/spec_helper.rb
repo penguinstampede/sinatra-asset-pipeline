@@ -10,12 +10,12 @@ RSpec.configure do |config|
   end
 end
 
-class App < Sinatra::Base
+class App < Padrino::Base
   set :assets_prefix, %w(assets)
-  register Sinatra::AssetPipeline
+  register Padrino::AssetPipeline
 end
 
-class CustomApp < Sinatra::Base
+class CustomApp < Padrino::Base
   set :assets_prefix, %w(assets, foo/bar)
   set :assets_precompile, %w(foo.css foo.js)
   set :assets_host, 'foo.cloudfront.net'
@@ -25,13 +25,13 @@ class CustomApp < Sinatra::Base
   set :assets_js_compressor, :uglifier
   set :path_prefix, "/static"
   set :assets_debug, true
-  register Sinatra::AssetPipeline
+  register Padrino::AssetPipeline
 end
 
-class PrefixApp < Sinatra::Base
+class PrefixApp < Padrino::Base
   set :assets_prefix, %w(assets)
   set :path_prefix, "/static"
-  register Sinatra::AssetPipeline
+  register Padrino::AssetPipeline
 end
 
 shared_context "assets" do
