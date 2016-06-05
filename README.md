@@ -1,4 +1,4 @@
-Padrino Asset Pipeline [![Build Status](https://travis-ci.org/kalasjocke/sinatra-asset-pipeline.svg?branch=master)](https://travis-ci.org/kalasjocke/sinatra-asset-pipeline) 
+Padrino Asset Pipeline [![Build Status](https://travis-ci.org/kalasjocke/sinatra-asset-pipeline.svg?branch=master)](https://travis-ci.org/kalasjocke/sinatra-asset-pipeline)
 ======================
 
 An asset pipeline implementation for Padrino based on [Sprockets](https://github.com/sstephenson/sprockets) with support for CoffeeScript, SASS, SCSS, LESS, ERB as well as CSS (SASS, YUI) and JavaScript (uglifier, YUI, Closure) minification.
@@ -84,7 +84,7 @@ class App < Padrino::Base
   # JavaScript minification
   set :assets_js_compressor, :uglifier
 
-  # Register the AssetPipeline extention, make sure this goes after all customization
+  # Register the AssetPipeline extension, make sure this goes after all customization
   register Padrino::AssetPipeline
 
   get '/' do
