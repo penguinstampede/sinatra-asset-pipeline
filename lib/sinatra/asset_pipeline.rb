@@ -1,6 +1,7 @@
 require 'sprockets'
 require 'sprockets-sass'
 require 'sprockets-helpers'
+require "autoprefixer-rails"
 
 module Padrino
   module AssetPipeline
@@ -33,6 +34,7 @@ module Padrino
           config.prefix = app.path_prefix unless app.path_prefix.nil?
           config.debug = app.assets_debug
         end
+
       end
 
       app.configure :staging, :production do
@@ -63,6 +65,9 @@ module Padrino
           settings.sprockets.call env_sprockets
         end
       end
+
+      AutoprefixerRails.install(app.sprockets)
+
     end
 
     def set_default(key, default)

@@ -20,6 +20,7 @@ Gem::Specification.new do |gem|
   gem.add_dependency 'sprockets', '~> 2.12'
   gem.add_dependency 'sprockets-sass', '~> 1.2'
   gem.add_dependency 'sprockets-helpers', '~> 1.1'
+  gem.add_dependency 'autoprefixer-rails', '~> 6.7'
   gem.add_development_dependency 'rspec', '~> 3.1'
   gem.add_development_dependency 'rack-test', '~> 0.6'
 end
